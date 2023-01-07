@@ -1,20 +1,23 @@
+// Modules
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+
+// Components
+import ContainerScreen from './components/ContainerScreen';
+import Panel from './components/Panel';
+import KeyboardCalculator from './components/KeyboardCalculator';
+
+// Contexts
+import { AppProvider } from './contexts/AppContext';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AppProvider>
+      <ContainerScreen>
+        <StatusBar style="light"/>
+        <Panel>1 + 2</Panel>
+        <KeyboardCalculator/>
+      </ContainerScreen>
+    </AppProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
