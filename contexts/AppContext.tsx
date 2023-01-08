@@ -8,6 +8,7 @@ import {
 
 // Utils
 import ScreenApp from "../utils/ScreenApp";
+import StringConverter from "../utils/StringConveter";
 
 type AppContextProps = {
   app: {
@@ -30,12 +31,14 @@ type AppProviderProps = {
 export function AppProvider({ children }: AppProviderProps) {
   const [result, setResult] = useState("");
 
+  // console.log(result);
+
   const handleChangeResult = useCallback((value: string) => {
     setResult(result + value);
   }, [result]);
 
   const calculate = useCallback(() => {
-    const valueConverted = result.replaceAll("x", "*");
+    const valueConverted = StringConverter.converterResult(result);
 
     setResult(eval(valueConverted));
   }, [result]);
