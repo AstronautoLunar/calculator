@@ -8,6 +8,10 @@ class ScreenApp {
   static getHeightTotalApp(): number {
     return Dimensions.get("window").height;
   }
+
+  static getWidthTotalApp(): number {
+    return Dimensions.get("window").width;
+  }
 };
 
 export default ScreenApp;

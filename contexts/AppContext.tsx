@@ -7,8 +7,7 @@ import {
 } from "react";
 
 // Utils
-import ScreenApp from "../utils/ScreenApp";
-import StringConverter from "../utils/StringConveter";
+import CalculateCore from "../utils/CalculateCore";
 
 type AppContextProps = {
   app: {
@@ -31,20 +30,33 @@ type AppProviderProps = {
 export function AppProvider({ children }: AppProviderProps) {
   const [result, setResult] = useState("");
 
-  // console.log(result);
-
   const handleChangeResult = useCallback((value: string) => {
-    setResult(result + value);
+    const valueConverted = CalculateCore.addSpace(value);
+
+    setResult(result + valueConverted);
   }, [result]);
 
   const calculate = useCallback(() => {
-    const valueConverted = StringConverter.converterResult(result);
+    if (!result.length) return
 
-    setResult(eval(valueConverted));
+    const valueConverted = CalculateCore.converterResult(result);
+
+    try {
+      const valueFinal = eval(valueConverted);
+      
+      setResult(valueFinal);
+    } catch(error) {
+      setResult(result);
+    }
+
   }, [result]);
 
   const deleteOneLastLetter = useCallback(() => {
-    setResult(result.slice(0, result.length - 1))
+    const newValue = String(result ?? "");
+    
+    if (!newValue.length) return
+    
+    setResult(newValue.slice(0, newValue.length - 1))
   }, [result]);
 
   const deleteAll = useCallback(() => {

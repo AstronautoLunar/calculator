@@ -13,13 +13,20 @@ function renderColorKeys(type: keyof typeof structure | "zero" | "equal") {
     "subtract", 
     "multiply", 
     "division", 
+  ].includes(type);
+
+  if (isKeysSpecial) {
+    return Color.setOpacityInHex("emphasis_level_1", "50");
+  }
+
+  const isKeysOther = [
     "percentage", 
     "point",
     "delete"
   ].includes(type);
 
-  if (isKeysSpecial) {
-    return Color.setOpacityInHex("emphasis_level_1", "50");
+  if (isKeysOther) {
+    return Color.setOpacityInHex("emphasis_level_4", "ff");
   }
 
   const isKeysNumbers = [
@@ -40,7 +47,7 @@ function renderColorKeys(type: keyof typeof structure | "zero" | "equal") {
   }
 
 
-  return Color.setOpacityInHex("emphasis_level_4", "ff");
+  return Color.setOpacityInHex("emphasis_level_5", "ff");
 };
 
 export default renderColorKeys;
