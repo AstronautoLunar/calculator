@@ -9,14 +9,16 @@ import {
 // Utils
 import ScreenApp from "../utils/ScreenApp";
 
-type AppData = {
-  app: {},
-  history: {},
-  config: {},
-};
-
 type AppContextProps = {
-  appData: AppData,
+  app: {
+    result: string;
+    handleChangeResult: (value: string) => void;
+    calculate: () => void;
+    deleteOneLastLetter: () => void;
+    deleteAll: () => void;
+  };
+  history: {};
+  config: {};
 }
 
 const AppContext = createContext({} as AppContextProps);
@@ -26,16 +28,38 @@ type AppProviderProps = {
 }
 
 export function AppProvider({ children }: AppProviderProps) {
-  const [ appData, setAppData ] = useState({
-    app: {},
-    history: {},
-    config: {}
-  });
+  const [result, setResult] = useState("");
+
+  const handleChangeResult = useCallback((value: string) => {
+    setResult(result + value);
+  }, [result]);
+
+  const calculate = useCallback(() => {
+    const valueConverted = result.replaceAll("x", "*");
+
+    setResult(eval(valueConverted));
+  }, [result]);
+
+  const deleteOneLastLetter = useCallback(() => {
+    setResult(result.slice(0, result.length - 1))
+  }, [result]);
+
+  const deleteAll = useCallback(() => {
+    setResult("")
+  }, []);
 
   return (
     <AppContext.Provider 
       value={{
-        appData,
+        app: {
+          result,
+          handleChangeResult,
+          calculate,
+          deleteOneLastLetter,
+          deleteAll
+        },
+        history: {},
+        config: {}
       }}
     >
       {children}

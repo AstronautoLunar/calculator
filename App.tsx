@@ -14,7 +14,7 @@ export default function App() {
     <AppProvider>
       <ContainerScreen>
         <StatusBar style="light"/>
-        <Panel>1 + 2</Panel>
+        <Panel/>
         <KeyboardCalculator/>
       </ContainerScreen>
     </AppProvider>

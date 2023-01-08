@@ -11,6 +11,9 @@ import styles from "./styles";
 // Utils of Components
 import renderColorKeys from "./utils/renderColorKeys";
 
+// Contexts
+import { useApp } from "../../contexts/AppContext";
+
 export const structure = {
   "add": "+",
   "subtract": "-",
@@ -31,10 +34,28 @@ export const structure = {
 };
 
 export default function KeyboardCalculator() {
+  const { app } = useApp();
+
   return (
     <View style={styles.container}>
       {Object.entries(structure).map(([type, label]) => (
-        <TouchableOpacity style={styles.keyPress} key={type}>
+        <TouchableOpacity 
+          style={styles.keyPress} 
+          key={type} 
+          onPress={() => {
+            if (type === "delete") {
+              app.deleteOneLastLetter();
+              return 
+            }
+
+            app.handleChangeResult(label)
+          }}
+          onLongPress={() => {
+            if (type === "delete") {
+              app.deleteAll();
+            }
+          }}
+        >
           <View
             
             style={[
@@ -54,7 +75,12 @@ export default function KeyboardCalculator() {
         </TouchableOpacity>
       ))}
       <View style={styles.rowEndArea}>
-        <TouchableOpacity style={styles.zeroKeyPress}>
+        <TouchableOpacity 
+          style={styles.zeroKeyPress}
+          onPress={() => {
+            app.handleChangeResult("0")
+          }}
+        >
           <View 
             style={[
               styles.zeroKeyArea,
@@ -70,7 +96,12 @@ export default function KeyboardCalculator() {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.keyEqualPress}>
+        <TouchableOpacity 
+          style={styles.keyEqualPress}
+          onPress={() => {
+            app.calculate()
+          }}
+        >
           <View 
             style={[
               styles.keyEqualArea,

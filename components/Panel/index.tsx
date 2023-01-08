@@ -4,14 +4,15 @@ import { Text } from "react-native";
 // Styles
 import styles from "./styles";
 
-type PanelProps = {
-  children?: string;
-}
+// Utils
+import { useApp } from "../../contexts/AppContext";
 
-export default function Panel({ children }: PanelProps) {
+export default function Panel() {
+  const { app } = useApp();
+
   return (
     <Text style={styles.result}>
-      {children}
+      {app.result}
     </Text>
   )
 }
