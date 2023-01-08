@@ -29,6 +29,15 @@
 
 <br/>
 <br/>
+
+## SpeedRun
+<div align="center">
+  <img
+       src="https://github.com/AstronautoLunar/calculator/blob/master/presentation/speedrunner.PNG"
+       alt="Part 1"
+       width="300px"
+   />
+</div>
   
 ## Tecnologias
 
