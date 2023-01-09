@@ -31,9 +31,23 @@ export function AppProvider({ children }: AppProviderProps) {
   const [result, setResult] = useState("");
 
   const handleChangeResult = useCallback((value: string) => {
-    const valueConverted = CalculateCore.addSpace(value);
+    const valueWithSpaces = CalculateCore.addSpace(value);
 
-    setResult(result + valueConverted);
+    if (!result.length) {
+    }
+    const resultFormatted = result.split(" ").map(groupChar => {
+      groupChar.split("").map(char => {
+        // if (CalculateCore.isHasOnePoint(char)) {
+        //   return char === "." ? "" : char;
+        // }
+  
+        return char;
+      }).join("");
+    }).join(" ");
+
+    console.log(resultFormatted)
+
+    setResult(resultFormatted + valueWithSpaces);
   }, [result]);
 
   const calculate = useCallback(() => {

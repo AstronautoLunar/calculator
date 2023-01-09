@@ -64,6 +64,50 @@ class CalculateCore {
       .map(actionConverter)
       .join("");
   }
+
+  static clearPointsUnnecessary(value: string) {
+    const listChars = [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "+",
+      "-",
+      "x",
+      "/",
+      "%",
+    ];
+  
+    return value
+      .split(" ")
+      .map(groupChar => {
+        const indexFirstPoint = groupChar.indexOf(".");
+  
+        const newGroupChar = groupChar
+          .split("")
+          .filter((char, index) => {
+            if (index === indexFirstPoint || listChars.includes(char)) {
+              return char
+            } else {
+              return ""
+            }
+          })
+          .join("");
+  
+        return newGroupChar;
+      })
+      .join(" ");
+  }
+
+  static isHasOnePoint(value: string) {
+    return value.indexOf(".") > 0 ? true : false;
+  }
 };
 
 export default CalculateCore;
